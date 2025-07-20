@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Leaf, Users, BookOpen, Cloud, MapPin } from "lucide-react";
 
@@ -40,11 +41,11 @@ const Header = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-3">
-            <Button variant="outline" size="sm">
-              Login
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/login">Login</Link>
             </Button>
-            <Button size="sm" className="bg-gradient-primary hover:shadow-glow transition-all duration-300">
-              Get Started
+            <Button size="sm" className="bg-gradient-primary hover:shadow-glow transition-all duration-300" asChild>
+              <Link to="/login">Get Started</Link>
             </Button>
           </div>
 
@@ -72,11 +73,11 @@ const Header = () => {
               </a>
             ))}
             <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-              <Button variant="outline" size="sm">
-                Login
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/login">Login</Link>
               </Button>
-              <Button size="sm" className="bg-gradient-primary">
-                Get Started
+              <Button size="sm" className="bg-gradient-primary" asChild>
+                <Link to="/login">Get Started</Link>
               </Button>
             </div>
           </div>
