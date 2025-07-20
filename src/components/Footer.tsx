@@ -50,7 +50,7 @@ const Footer = () => {
               <div className="bg-primary-foreground/10 p-2 rounded-lg">
                 <Leaf className="h-6 w-6 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold">AgriConnect</span>
+              <span className="text-xl font-bold">AgroDiverse</span>
             </div>
             <p className="text-primary-foreground/80 mb-6 max-w-md">
               Empowering farmers worldwide with expert knowledge, real-time data, and 
@@ -61,7 +61,7 @@ const Footer = () => {
             <div className="space-y-2 text-sm text-primary-foreground/80">
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span>support@agriconnect.com</span>
+                <span>support@agrodiverse.com</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4" />
@@ -117,7 +117,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-primary-foreground/20">
           <div className="text-primary-foreground/80 mb-4 md:mb-0">
-            © 2024 AgriConnect. All rights reserved. Built with love for farmers worldwide.
+            © 2024 AgroDiverse. All rights reserved. Built with love for farmers worldwide.
           </div>
           
           {/* Social Links */}
