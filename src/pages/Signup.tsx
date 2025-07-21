@@ -35,6 +35,9 @@ const Signup = () => {
           to="/" 
           className="inline-flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors mb-8"
         >
+          <div className="bg-gradient-primary p-1 rounded shadow-natural">
+            <Leaf className="h-3 w-3 text-primary-foreground" />
+          </div>
           <ArrowLeft className="h-4 w-4" />
           <span>Back to Home</span>
         </Link>

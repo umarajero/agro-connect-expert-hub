@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Star, MessageCircle, Video, Clock, Users, ArrowLeft } from "lucide-react";
+import { Star, MessageCircle, Video, Clock, Users, ArrowLeft, Leaf } from "lucide-react";
 
 const Experts = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -104,9 +104,12 @@ const Experts = () => {
       <main className="container mx-auto px-4 py-8">
         {/* Header Section */}
         <div className="mb-8">
-          <Link to="/" className="inline-flex items-center text-primary hover:text-primary-glow mb-4 transition-colors">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Home
+          <Link to="/" className="inline-flex items-center space-x-2 text-primary hover:text-primary-glow mb-4 transition-colors">
+            <div className="bg-gradient-primary p-1 rounded shadow-natural">
+              <Leaf className="h-3 w-3 text-primary-foreground" />
+            </div>
+            <ArrowLeft className="h-4 w-4" />
+            <span>Back to Home</span>
           </Link>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             Expert Consultation
