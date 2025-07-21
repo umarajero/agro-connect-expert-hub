@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, BookOpen, Cloud, MapPin, MessageCircle, Calendar, TrendingUp, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const FeaturesSection = () => {
   const features = [
@@ -81,8 +82,11 @@ const FeaturesSection = () => {
                 </ul>
                 <Button 
                   className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
+                  asChild
                 >
-                  Explore {feature.title}
+                  <Link to={feature.id === "connect" ? "/experts" : "#"}>
+                    Explore {feature.title}
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
