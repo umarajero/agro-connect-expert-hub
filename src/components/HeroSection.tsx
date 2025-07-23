@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, TrendingUp, Award, Globe } from "lucide-react";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-agriculture.jpg";
 
 const HeroSection = () => {
@@ -45,8 +46,11 @@ const HeroSection = () => {
               variant="outline" 
               size="lg" 
               className="text-lg px-8 py-4 hover:bg-primary/5"
+              asChild
             >
-              Become an Expert
+              <Link to="/become-expert">
+                Become an Expert
+              </Link>
             </Button>
           </div>
 
