@@ -1,19 +1,38 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Leaf, Mail, Lock, ArrowLeft } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement authentication with Supabase
-    console.log("Login attempt:", { email });
+    setLoading(true);
+    
+    try {
+      const { error } = await signIn(email, password);
+      
+      if (error) {
+        toast.error(error.message);
+      } else {
+        toast.success("Successfully signed in!");
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -83,9 +102,10 @@ const Login = () => {
 
               <Button 
                 type="submit" 
+                disabled={loading}
                 className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
               >
-                Sign In
+                {loading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
 
@@ -105,11 +125,6 @@ const Login = () => {
             </div>
 
             {/* Note about Supabase */}
-            <div className="p-4 bg-accent/50 rounded-lg border border-border/50">
-              <p className="text-xs text-muted-foreground text-center">
-                <strong>Note:</strong> Connect Supabase integration to enable full authentication functionality.
-              </p>
-            </div>
           </CardContent>
         </Card>
       </div>

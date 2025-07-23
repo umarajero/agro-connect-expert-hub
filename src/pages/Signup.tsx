@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Leaf, Mail, Lock, User, MapPin, ArrowLeft } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const { signUp } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -21,10 +26,34 @@ const Signup = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement registration with Supabase
-    console.log("Signup attempt:", formData);
+    
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    
+    setLoading(true);
+    
+    try {
+      const { error } = await signUp(formData.email, formData.password, {
+        full_name: formData.fullName,
+        location: formData.location,
+        farm_type: formData.farmType
+      });
+      
+      if (error) {
+        toast.error(error.message);
+      } else {
+        toast.success("Account created successfully! Please check your email to verify your account.");
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -161,9 +190,10 @@ const Signup = () => {
 
               <Button 
                 type="submit" 
+                disabled={loading}
                 className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
               >
-                Create Account
+                {loading ? "Creating Account..." : "Create Account"}
               </Button>
             </form>
 
@@ -177,11 +207,6 @@ const Signup = () => {
             </div>
 
             {/* Note about Supabase */}
-            <div className="p-4 bg-accent/50 rounded-lg border border-border/50">
-              <p className="text-xs text-muted-foreground text-center">
-                <strong>Note:</strong> Connect Supabase integration to enable full authentication functionality.
-              </p>
-            </div>
           </CardContent>
         </Card>
       </div>

@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, X, Leaf, Users, BookOpen, Cloud, MapPin } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   const navItems = [
     { name: "Connect", icon: Users, href: "#connect" },
@@ -40,14 +44,46 @@ const Header = () => {
           </nav>
 
           {/* CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/login">Login</Link>
-            </Button>
-            <Button size="sm" className="bg-gradient-primary hover:shadow-glow transition-all duration-300" asChild>
-              <Link to="/login">Get Started</Link>
-            </Button>
-          </div>
+          {user ? (
+            <div className="hidden md:flex items-center space-x-3">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={user.user_metadata?.avatar_url} alt={user.email} />
+                      <AvatarFallback>
+                        {user.email?.charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuItem className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        {user.user_metadata?.full_name || user.email}
+                      </p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {user.email}
+                      </p>
+                    </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => signOut()}>
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <div className="hidden md:flex items-center space-x-3">
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/login">Login</Link>
+              </Button>
+              <Button size="sm" className="bg-gradient-primary hover:shadow-glow transition-all duration-300" asChild>
+                <Link to="/signup">Get Started</Link>
+              </Button>
+            </div>
+          )}
 
           {/* Mobile Menu Button */}
           <button
@@ -73,12 +109,25 @@ const Header = () => {
               </a>
             ))}
             <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-              <Button variant="outline" size="sm" asChild>
-                <Link to="/login">Login</Link>
-              </Button>
-              <Button size="sm" className="bg-gradient-primary" asChild>
-                <Link to="/login">Get Started</Link>
-              </Button>
+              {user ? (
+                <div className="space-y-2">
+                  <div className="px-2 py-1 text-sm text-muted-foreground">
+                    {user.user_metadata?.full_name || user.email}
+                  </div>
+                  <Button variant="outline" size="sm" onClick={() => signOut()}>
+                    Sign out
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/login">Login</Link>
+                  </Button>
+                  <Button size="sm" className="bg-gradient-primary" asChild>
+                    <Link to="/signup">Get Started</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         )}
