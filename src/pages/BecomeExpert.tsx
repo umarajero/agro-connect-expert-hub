@@ -26,10 +26,15 @@ import {
   Clock
 } from "lucide-react";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
+import { expertsService } from "@/lib/experts";
+import { useEffect } from "react";
 
 const BecomeExpert = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [existingApplication, setExistingApplication] = useState(null);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -44,20 +49,76 @@ const BecomeExpert = () => {
     availability: ""
   });
 
+  // Check for existing application on component mount
+  useEffect(() => {
+    const checkExistingApplication = async () => {
+      if (user) {
+        try {
+          const application = await expertsService.getUserApplication();
+          if (application) {
+            setExistingApplication(application);
+            // Pre-fill form with existing data
+            setFormData({
+              fullName: application.full_name,
+              email: application.email,
+              phone: application.phone,
+              location: application.location,
+              specialization: application.specialization,
+              experience: application.experience,
+              education: application.education,
+              certifications: application.certifications || "",
+              bio: application.bio,
+              hourlyRate: application.hourly_rate.toString(),
+              availability: application.availability
+            });
+          }
+        } catch (error) {
+          console.error('Error checking existing application:', error);
+        }
+      }
+    };
+
+    checkExistingApplication();
+  }, [user]);
+
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!user) {
+      toast.error("Please sign in to submit your expert application");
+      navigate("/login");
+      return;
+    }
+
     setLoading(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      await expertsService.submitApplication({
+        full_name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        location: formData.location,
+        specialization: formData.specialization,
+        experience: formData.experience,
+        education: formData.education,
+        certifications: formData.certifications,
+        bio: formData.bio,
+        hourly_rate: parseInt(formData.hourlyRate),
+        availability: formData.availability
+      });
+      
       toast.success("Application submitted successfully! We'll review your application and get back to you within 2-3 business days.");
       setLoading(false);
       navigate("/");
-    }, 2000);
+    } catch (error: any) {
+      console.error('Error submitting application:', error);
+      toast.error(error.message || "Failed to submit application. Please try again.");
+      setLoading(false);
+    }
   };
 
   const benefits = [
@@ -133,11 +194,38 @@ const BecomeExpert = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Application Form */}
           <div className="lg:col-span-2">
+            {existingApplication && (
+              <Card className="mb-6 border-primary/20 bg-primary/5">
+                <CardContent className="p-4">
+                  <div className="flex items-center space-x-2">
+                    <div className={`w-3 h-3 rounded-full ${
+                      existingApplication.status === 'approved' ? 'bg-green-500' :
+                      existingApplication.status === 'rejected' ? 'bg-red-500' :
+                      'bg-yellow-500'
+                    }`}></div>
+                    <span className="font-medium">
+                      Application Status: {existingApplication.status.charAt(0).toUpperCase() + existingApplication.status.slice(1)}
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    {existingApplication.status === 'pending' && "Your application is under review. We'll get back to you within 2-3 business days."}
+                    {existingApplication.status === 'approved' && "Congratulations! Your application has been approved. You can now start consulting with farmers."}
+                    {existingApplication.status === 'rejected' && "Your application was not approved. Please review the requirements and submit a new application."}
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+            
             <Card className="shadow-glow bg-card/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-2xl text-foreground">Expert Application</CardTitle>
                 <CardDescription>
-                  Fill out the form below to apply to become an agricultural expert on our platform.
+                  {existingApplication && existingApplication.status === 'pending' 
+                    ? "Your application is currently under review. You can update it below if needed."
+                    : existingApplication && existingApplication.status === 'approved'
+                    ? "Your expert profile information:"
+                    : "Fill out the form below to apply to become an agricultural expert on our platform."
+                  }
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -316,10 +404,14 @@ const BecomeExpert = () => {
                   <Button 
                     type="submit" 
                     disabled={loading}
+                    disabled={loading || (existingApplication && existingApplication.status === 'approved')}
                     className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
                     size="lg"
                   >
-                    {loading ? "Submitting Application..." : "Submit Application"}
+                    {loading ? "Submitting Application..." : 
+                     existingApplication && existingApplication.status === 'approved' ? "Application Approved" :
+                     existingApplication && existingApplication.status === 'pending' ? "Update Application" :
+                     "Submit Application"}
                   </Button>
                 </form>
               </CardContent>
