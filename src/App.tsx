@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Experts from "./pages/Experts";
 import BecomeExpert from "./pages/BecomeExpert";
+import SoilMap from "./pages/SoilMap";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/signup" element={<Signup />} />
             <Route path="/experts" element={<Experts />} />
             <Route path="/become-expert" element={<BecomeExpert />} />
+            <Route path="/soil-map" element={<SoilMap />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
