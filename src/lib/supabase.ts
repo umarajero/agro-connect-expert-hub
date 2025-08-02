@@ -4,16 +4,27 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing Supabase environment variables:', {
-    VITE_SUPABASE_URL: supabaseUrl ? 'Set' : 'Missing',
-    VITE_SUPABASE_ANON_KEY: supabaseAnonKey ? 'Set' : 'Missing'
-  })
-  throw new Error('Missing Supabase environment variables. Please add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your .env file.')
+  const errorMessage = `Missing Supabase environment variables:
+    VITE_SUPABASE_URL: ${supabaseUrl ? 'Set' : 'Missing'}
+    VITE_SUPABASE_ANON_KEY: ${supabaseAnonKey ? 'Set' : 'Missing'}
+    
+Please add these variables to your .env file with values from your Supabase project dashboard.`
+  
+  console.error(errorMessage)
+  throw new Error(errorMessage)
 }
 
-console.log('Supabase configuration:', {
+// Validate URL format
+try {
+  new URL(supabaseUrl)
+} catch (error) {
+  throw new Error(`Invalid Supabase URL format: ${supabaseUrl}. Please check your VITE_SUPABASE_URL in the .env file.`)
+}
+
+console.log('Supabase configuration loaded:', {
   url: supabaseUrl,
-  hasAnonKey: !!supabaseAnonKey
+  hasAnonKey: !!supabaseAnonKey,
+  urlValid: true
 })
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
