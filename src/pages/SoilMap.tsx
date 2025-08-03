@@ -15,7 +15,8 @@ import {
   Zap,
   Info,
   Search,
-  Filter
+  Filter,
+  Cloud
 } from "lucide-react";
 
 // Nigeria soil data with regions and their characteristics
@@ -29,7 +30,14 @@ const nigerianSoilData = {
     recommendedCrops: ["Cassava", "Yam", "Plantain", "Cocoyam", "Vegetables"],
     challenges: ["Soil erosion", "Nutrient depletion"],
     coordinates: { lat: 6.5244, lng: 3.3792 },
-    color: "#8B4513"
+    color: "#8B4513",
+    weather: {
+      temperature: "28°C",
+      humidity: "85%",
+      rainfall: "1,200mm/year",
+      forecast: "Partly cloudy with afternoon showers",
+      season: "Wet season"
+    }
   },
   "Kano": {
     soilType: "Sandy Clay",
@@ -40,7 +48,14 @@ const nigerianSoilData = {
     recommendedCrops: ["Millet", "Sorghum", "Groundnuts", "Cotton", "Cowpea"],
     challenges: ["Water scarcity", "Soil degradation"],
     coordinates: { lat: 12.0022, lng: 8.5920 },
-    color: "#D2691E"
+    color: "#D2691E",
+    weather: {
+      temperature: "35°C",
+      humidity: "45%",
+      rainfall: "600mm/year",
+      forecast: "Hot and dry with clear skies",
+      season: "Dry season"
+    }
   },
   "Kaduna": {
     soilType: "Clay Loam",
@@ -51,7 +66,14 @@ const nigerianSoilData = {
     recommendedCrops: ["Maize", "Rice", "Yam", "Ginger", "Tomatoes"],
     challenges: ["Seasonal flooding", "Pest management"],
     coordinates: { lat: 10.5222, lng: 7.4383 },
-    color: "#A0522D"
+    color: "#A0522D",
+    weather: {
+      temperature: "30°C",
+      humidity: "70%",
+      rainfall: "1,000mm/year",
+      forecast: "Warm with scattered thunderstorms",
+      season: "Transition season"
+    }
   },
   "Rivers": {
     soilType: "Clay",
@@ -62,7 +84,14 @@ const nigerianSoilData = {
     recommendedCrops: ["Rice", "Plantain", "Cassava", "Oil Palm", "Cocoyam"],
     challenges: ["Waterlogging", "Soil acidity"],
     coordinates: { lat: 4.8156, lng: 7.0498 },
-    color: "#654321"
+    color: "#654321",
+    weather: {
+      temperature: "26°C",
+      humidity: "90%",
+      rainfall: "2,400mm/year",
+      forecast: "Heavy rainfall with high humidity",
+      season: "Wet season"
+    }
   },
   "Ogun": {
     soilType: "Loamy Sand",
@@ -73,7 +102,14 @@ const nigerianSoilData = {
     recommendedCrops: ["Cassava", "Maize", "Cocoa", "Kola nut", "Vegetables"],
     challenges: ["Soil erosion", "Nutrient management"],
     coordinates: { lat: 7.1608, lng: 3.3566 },
-    color: "#8B7355"
+    color: "#8B7355",
+    weather: {
+      temperature: "27°C",
+      humidity: "80%",
+      rainfall: "1,100mm/year",
+      forecast: "Mild temperatures with morning mist",
+      season: "Wet season"
+    }
   },
   "Plateau": {
     soilType: "Volcanic Soil",
@@ -84,7 +120,14 @@ const nigerianSoilData = {
     recommendedCrops: ["Irish Potato", "Tomatoes", "Cabbage", "Carrots", "Beans"],
     challenges: ["Temperature fluctuation", "Erosion on slopes"],
     coordinates: { lat: 9.2182, lng: 9.5179 },
-    color: "#2F4F4F"
+    color: "#2F4F4F",
+    weather: {
+      temperature: "22°C",
+      humidity: "65%",
+      rainfall: "1,300mm/year",
+      forecast: "Cool and pleasant with light winds",
+      season: "Cool dry season"
+    }
   },
   "Cross River": {
     soilType: "Forest Soil",
@@ -95,7 +138,14 @@ const nigerianSoilData = {
     recommendedCrops: ["Cocoa", "Oil Palm", "Plantain", "Cassava", "Yam"],
     challenges: ["Deforestation", "Soil acidity"],
     coordinates: { lat: 5.9631, lng: 8.3250 },
-    color: "#228B22"
+    color: "#228B22",
+    weather: {
+      temperature: "25°C",
+      humidity: "88%",
+      rainfall: "2,000mm/year",
+      forecast: "Tropical climate with frequent showers",
+      season: "Wet season"
+    }
   },
   "Borno": {
     soilType: "Sandy",
@@ -106,7 +156,14 @@ const nigerianSoilData = {
     recommendedCrops: ["Millet", "Sorghum", "Groundnuts", "Sesame", "Date Palm"],
     challenges: ["Desertification", "Water scarcity", "Low fertility"],
     coordinates: { lat: 11.8846, lng: 13.1571 },
-    color: "#F4A460"
+    color: "#F4A460",
+    weather: {
+      temperature: "38°C",
+      humidity: "25%",
+      rainfall: "300mm/year",
+      forecast: "Very hot and arid with dust storms",
+      season: "Dry season"
+    }
   }
 };
 
@@ -318,6 +375,38 @@ const SoilMap = () => {
                           </div>
                         </div>
 
+                        {/* Weather Information */}
+                        <div className="space-y-3">
+                          <h4 className="font-semibold text-foreground flex items-center">
+                            <Cloud className="h-4 w-4 mr-2" />
+                            Weather Forecast
+                          </h4>
+                          
+                          <div className="bg-muted/50 rounded-lg p-3 space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-muted-foreground text-sm">Temperature:</span>
+                              <span className="font-medium text-sm">{data.weather.temperature}</span>
+                            </div>
+                            
+                            <div className="flex items-center justify-between">
+                              <span className="text-muted-foreground text-sm">Humidity:</span>
+                              <span className="font-medium text-sm">{data.weather.humidity}</span>
+                            </div>
+                            
+                            <div className="flex items-center justify-between">
+                              <span className="text-muted-foreground text-sm">Annual Rainfall:</span>
+                              <span className="font-medium text-sm">{data.weather.rainfall}</span>
+                            </div>
+                            
+                            <div className="pt-2 border-t border-border">
+                              <p className="text-xs text-muted-foreground mb-1">Current Forecast:</p>
+                              <p className="text-sm font-medium">{data.weather.forecast}</p>
+                              <Badge variant="outline" className="mt-2 text-xs">
+                                {data.weather.season}
+                              </Badge>
+                            </div>
+                          </div>
+                        </div>
                         {/* Recommended Crops */}
                         <div className="space-y-3">
                           <h4 className="font-semibold text-foreground">Recommended Crops</h4>
