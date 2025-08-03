@@ -5,10 +5,10 @@ import heroImage from "@/assets/hero-agriculture.jpg";
 
 const HeroSection = () => {
   const stats = [
-    { icon: Users, value: "10K+", label: "Farmers Connected" },
-    { icon: TrendingUp, value: "85%", label: "Crop Yield Increase" },
-    { icon: Award, value: "500+", label: "Expert Advisors" },
-    { icon: Globe, value: "25+", label: "Countries Served" },
+    { icon: Users, value: "10K+", label: "Farmers Connection Goal" },
+    { icon: TrendingUp, value: "85%", label: "Crop Yield Increase Goal" },
+    { icon: Award, value: "500+", label: "Expert Advisors Goal" },
+    { icon: Globe, value: "25+", label: "Countries To Serve" },
   ];
 
   return (
