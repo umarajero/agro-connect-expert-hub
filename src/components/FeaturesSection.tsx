@@ -84,7 +84,12 @@ const FeaturesSection = () => {
                   className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
                   asChild
                 >
-                  <Link to={feature.id === "connect" ? "/experts" : feature.id === "soil" ? "/soil-map" : "#"}>
+                  <Link to={
+                    feature.id === "connect" ? "/experts" : 
+                    feature.id === "soil" ? "/soil-map" : 
+                    feature.id === "weather" ? "/weather" : 
+                    "#"
+                  }>
                     Explore {feature.title}
                   </Link>
                 </Button>

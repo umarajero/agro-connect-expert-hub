@@ -13,7 +13,7 @@ const Header = () => {
   const navItems = [
     { name: "Connect", icon: Users, href: "#connect" },
     { name: "Articles", icon: BookOpen, href: "#articles" },
-    { name: "Weather", icon: Cloud, href: "#weather" },
+    { name: "Weather", icon: Cloud, href: "/weather" },
     { name: "Soil Map", icon: MapPin, href: "/soil-map" },
   ];
 
