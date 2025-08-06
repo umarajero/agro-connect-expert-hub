@@ -48,8 +48,8 @@ const HeroSection = () => {
               className="text-lg px-8 py-4 hover:bg-primary/5"
               asChild
             >
-              <Link to="/become-expert">
-                Become an Expert
+              <Link to="/expert-auth">
+                Join as Expert
               </Link>
             </Button>
           </div>

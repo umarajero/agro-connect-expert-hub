@@ -5,8 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import FarmerAuth from "./pages/FarmerAuth";
+import ExpertAuth from "./pages/ExpertAuth";
 import Experts from "./pages/Experts";
 import BecomeExpert from "./pages/BecomeExpert";
 import SoilMap from "./pages/SoilMap";
@@ -24,8 +24,8 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/farmer-auth" element={<FarmerAuth />} />
+            <Route path="/expert-auth" element={<ExpertAuth />} />
             <Route path="/experts" element={<Experts />} />
             <Route path="/become-expert" element={<BecomeExpert />} />
             <Route path="/soil-map" element={<SoilMap />} />
