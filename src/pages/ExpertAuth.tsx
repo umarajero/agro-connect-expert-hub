@@ -10,7 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { 
   Leaf, Mail, Lock, User, MapPin, ArrowLeft, GraduationCap, 
-  Award, FileText, DollarSign, Clock, Users
+  Award, FileText, DollarSign, Clock, Users, Star, MessageCircle, 
+  Calendar, TrendingUp
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { expertsService } from "@/lib/experts";
