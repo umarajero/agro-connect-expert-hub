@@ -60,7 +60,7 @@ const Login = () => {
               <div className="bg-gradient-primary p-2 rounded-lg shadow-natural">
                 <Leaf className="h-6 w-6 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold text-foreground">AgroDiverse</span>
+              <span className="text-xl font-bold text-foreground">AgroDiverseSolutions</span>
             </div>
             
             <CardTitle className="text-2xl font-bold text-foreground">Welcome Back</CardTitle>
