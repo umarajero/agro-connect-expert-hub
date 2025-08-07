@@ -11,8 +11,8 @@ const Header = () => {
   const { user, signOut } = useAuth();
 
   const navItems = [
-    { name: "Connect", icon: Users, href: "#connect" },
-    { name: "Articles", icon: BookOpen, href: "#articles" },
+    { name: "Connect", icon: Users, href: "/experts" },
+    { name: "Articles", icon: BookOpen, href: "/articles" },
     { name: "Weather", icon: Cloud, href: "/weather" },
     { name: "Soil Map", icon: MapPin, href: "/soil-map" },
   ];
@@ -98,15 +98,15 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-4 animate-fade-in">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors duration-200 py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <item.icon className="h-4 w-4" />
                 <span>{item.name}</span>
-              </a>
+              </Link>
             ))}
             <div className="flex flex-col space-y-2 pt-4 border-t border-border">
               {user ? (
