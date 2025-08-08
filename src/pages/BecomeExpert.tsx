@@ -372,15 +372,15 @@ const BecomeExpert = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="hourlyRate">Desired Hourly Rate (USD) *</Label>
+                        <Label htmlFor="hourlyRate">Desired Hourly Rate (NGN) *</Label>
                         <Input
                           id="hourlyRate"
                           type="number"
                           value={formData.hourlyRate}
                           onChange={(e) => handleInputChange("hourlyRate", e.target.value)}
-                          placeholder="45"
-                          min="20"
-                          max="200"
+                          placeholder="15000"
+                          min="5000"
+                          max="100000"
                           required
                         />
                       </div>
