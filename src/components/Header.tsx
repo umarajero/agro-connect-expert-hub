@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Menu, X, Leaf, Users, BookOpen, Cloud, MapPin } from "lucide-react";
+import { Menu, X, Leaf, Users, BookOpen, Cloud, MapPin, LayoutDashboard } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 const Header = () => {
@@ -67,6 +67,12 @@ const Header = () => {
                         {user.email}
                       </p>
                     </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/farmer-dashboard" className="flex items-center">
+                      <LayoutDashboard className="h-4 w-4 mr-2" />
+                      My Dashboard
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => signOut()}>
                     Sign out

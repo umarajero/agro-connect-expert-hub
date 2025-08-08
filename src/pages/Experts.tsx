@@ -4,15 +4,19 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Star, MessageCircle, Video, Clock, Users, ArrowLeft, Leaf, AlertCircle } from "lucide-react";
+import { Star, MessageCircle, Video, Clock, Users, ArrowLeft, Leaf, AlertCircle, Search, Filter } from "lucide-react";
 import { useEffect } from "react";
 import { expertsService, Expert } from "@/lib/experts";
 import { toast } from "sonner";
 
 const Experts = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedAvailability, setSelectedAvailability] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
   const [experts, setExperts] = useState<Expert[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -29,6 +33,13 @@ const Experts = () => {
     { id: "plant-pathology", name: "Plant Pathology" }
   ];
 
+  const availabilityOptions = [
+    { id: "all", name: "All Availability" },
+    { id: "full-time", name: "Full-time" },
+    { id: "part-time", name: "Part-time" },
+    { id: "flexible", name: "Flexible" },
+    { id: "weekends", name: "Weekends" }
+  ];
   // Load experts from Supabase
   useEffect(() => {
     const loadExperts = async () => {
@@ -49,9 +60,16 @@ const Experts = () => {
     loadExperts();
   }, []);
 
-  const filteredExperts = selectedCategory === "all" 
-    ? experts 
-    : experts.filter(expert => expert.specialization === selectedCategory);
+  const filteredExperts = experts.filter(expert => {
+    const matchesCategory = selectedCategory === "all" || expert.specialization === selectedCategory;
+    const matchesAvailability = selectedAvailability === "all" || expert.availability === selectedAvailability;
+    const matchesSearch = searchTerm === "" || 
+      expert.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      expert.specialization.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      expert.location.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    return matchesCategory && matchesAvailability && matchesSearch;
+  });
 
   // Helper function to get availability status
   const getAvailabilityStatus = (availability: string) => {
@@ -112,8 +130,32 @@ const Experts = () => {
           </p>
         </div>
 
-        {/* Category Filter */}
+        {/* Search and Filters */}
         <div className="mb-8">
+          <div className="flex flex-col md:flex-row gap-4 mb-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search experts by name, specialization, or location..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <Select onValueChange={setSelectedAvailability} defaultValue="all">
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue placeholder="Filter by availability" />
+              </SelectTrigger>
+              <SelectContent>
+                {availabilityOptions.map((option) => (
+                  <SelectItem key={option.id} value={option.id}>
+                    {option.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <Button
@@ -225,12 +267,10 @@ const Experts = () => {
 
                   <div className="flex gap-2">
                     <Button className="flex-1 bg-gradient-primary hover:shadow-glow transition-all duration-300">
-                      <MessageCircle className="h-4 w-4 mr-2" />
-                      Chat Now
-                    </Button>
-                    <Button variant="outline" className="flex-1">
-                      <Video className="h-4 w-4 mr-2" />
-                      Video Call
+                      <Link to={`/expert/${expert.id}/book`} className="flex items-center w-full">
+                        <MessageCircle className="h-4 w-4 mr-2" />
+                        Book Consultation
+                      </Link>
                     </Button>
                   </div>
                 </CardContent>

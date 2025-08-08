@@ -12,6 +12,8 @@ import BecomeExpert from "./pages/BecomeExpert";
 import SoilMap from "./pages/SoilMap";
 import Weather from "./pages/Weather";
 import Articles from "./pages/Articles";
+import ExpertBooking from "./pages/ExpertBooking";
+import FarmerDashboard from "./pages/FarmerDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +34,8 @@ const App = () => (
             <Route path="/soil-map" element={<SoilMap />} />
             <Route path="/weather" element={<Weather />} />
             <Route path="/articles" element={<Articles />} />
+            <Route path="/expert/:expertId/book" element={<ExpertBooking />} />
+            <Route path="/farmer-dashboard" element={<FarmerDashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
