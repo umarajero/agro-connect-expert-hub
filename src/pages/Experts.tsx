@@ -254,7 +254,7 @@ const Experts = () => {
 
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <div className="text-lg font-semibold text-foreground">${expert.hourly_rate}/hour</div>
+                      <div className="text-lg font-semibold text-foreground">₦{expert.hourly_rate.toLocaleString()}/hour</div>
                       <div className="text-sm text-muted-foreground">{getAvailabilityStatus(expert.availability)}</div>
                     </div>
                     <Badge 

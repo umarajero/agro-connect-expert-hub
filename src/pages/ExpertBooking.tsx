@@ -232,7 +232,7 @@ const ExpertBooking = () => {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">Hourly Rate:</span>
-                    <span className="font-semibold text-lg">${expert.hourly_rate}/hour</span>
+                    <span className="font-semibold text-lg">₦{expert.hourly_rate.toLocaleString()}/hour</span>
                   </div>
                   
                   <div className="flex items-center justify-between">
@@ -396,11 +396,11 @@ const ExpertBooking = () => {
                       </div>
                       <div className="flex justify-between">
                         <span>Rate:</span>
-                        <span>${expert.hourly_rate}/hour</span>
+                        <span>₦{expert.hourly_rate.toLocaleString()}/hour</span>
                       </div>
                       <div className="flex justify-between font-semibold text-lg border-t pt-2">
                         <span>Total:</span>
-                        <span>${calculatePrice().toFixed(2)}</span>
+                        <span>₦{calculatePrice().toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                       </div>
                     </div>
                   </div>

@@ -196,7 +196,7 @@ const FarmerDashboard = () => {
                 <div className="ml-4">
                   <p className="text-sm font-medium text-muted-foreground">Total Spent</p>
                   <p className="text-2xl font-bold">
-                    ${bookings.reduce((sum, b) => sum + Number(b.total_price), 0).toFixed(2)}
+                    ₦{bookings.reduce((sum, b) => sum + Number(b.total_price), 0).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </p>
                 </div>
               </div>
@@ -283,7 +283,7 @@ const FarmerDashboard = () => {
                       
                       <div className="flex items-center text-sm text-muted-foreground">
                         <DollarSign className="h-4 w-4 mr-2" />
-                        ${booking.total_price}
+                        ₦{Number(booking.total_price).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </div>
                       
                       <div className="pt-2">
@@ -366,7 +366,7 @@ const FarmerDashboard = () => {
                       
                       <div className="flex items-center text-sm text-muted-foreground">
                         <DollarSign className="h-4 w-4 mr-2" />
-                        ${booking.total_price}
+                        ₦{Number(booking.total_price).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </div>
                       
                       {booking.status === 'completed' && (
