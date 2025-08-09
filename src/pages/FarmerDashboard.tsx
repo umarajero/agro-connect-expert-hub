@@ -192,7 +192,7 @@ const FarmerDashboard = () => {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
-                <DollarSign className="h-8 w-8 text-blue-500" />
+                <div className="h-8 w-8 text-blue-500 flex items-center justify-center font-bold text-lg">₦</div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-muted-foreground">Total Spent</p>
                   <p className="text-2xl font-bold">
@@ -282,7 +282,7 @@ const FarmerDashboard = () => {
                       </div>
                       
                       <div className="flex items-center text-sm text-muted-foreground">
-                        <DollarSign className="h-4 w-4 mr-2" />
+                        <span className="text-sm font-bold mr-2">₦</span>
                         ₦{Number(booking.total_price).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </div>
                       
@@ -365,7 +365,7 @@ const FarmerDashboard = () => {
                       </div>
                       
                       <div className="flex items-center text-sm text-muted-foreground">
-                        <DollarSign className="h-4 w-4 mr-2" />
+                        <span className="text-sm font-bold mr-2">₦</span>
                         ₦{Number(booking.total_price).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </div>
                       

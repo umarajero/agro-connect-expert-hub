@@ -500,7 +500,7 @@ const ExpertAuth = () => {
                       {/* Service Information */}
                       <div className="space-y-4">
                         <h3 className="text-lg font-semibold text-foreground flex items-center">
-                          <DollarSign className="h-5 w-5 mr-2" />
+                          <span className="text-lg font-bold mr-2">₦</span>
                           Service Details
                         </h3>
 
