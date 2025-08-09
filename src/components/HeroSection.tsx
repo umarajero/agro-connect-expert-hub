@@ -34,28 +34,8 @@ const HeroSection = () => {
             articles to maximize your crop yields and farming success.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button 
-              size="lg" 
-              className="bg-gradient-primary hover:shadow-glow transition-all duration-300 text-lg px-8 py-4"
-            >
-              Start Farming Smarter
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="text-lg px-8 py-4 hover:bg-primary/5"
-              asChild
-            >
-              <Link to="/expert-auth">
-                Join as Expert
-              </Link>
-            </Button>
-          </div>
-
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-12">
             {stats.map((stat, index) => (
               <div 
                 key={index} 

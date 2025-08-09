@@ -232,7 +232,7 @@ const ExpertBooking = () => {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">Hourly Rate:</span>
-                    <span className="font-semibold text-lg">₦{expert.hourly_rate.toLocaleString()}/hour</span>
+                    <span className="font-semibold text-lg">₦{expert.hourly_rate.toLocaleString('en-NG')}/hour</span>
                   </div>
                   
                   <div className="flex items-center justify-between">

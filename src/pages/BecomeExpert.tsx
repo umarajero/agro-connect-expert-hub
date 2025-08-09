@@ -124,7 +124,7 @@ const BecomeExpert = () => {
   const benefits = [
     {
       icon: DollarSign,
-      title: "Earn $40-80/hour",
+      title: "Earn ₦15,000-50,000/hour",
       description: "Set your own rates and earn competitive compensation for your expertise"
     },
     {

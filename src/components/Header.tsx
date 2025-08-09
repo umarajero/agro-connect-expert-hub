@@ -83,7 +83,7 @@ const Header = () => {
           ) : (
             <div className="hidden md:flex items-center space-x-3">
               <Button variant="outline" size="sm" asChild>
-                <Link to="/farmer-auth">Farmer Login</Link>
+                <Link to="/farmer-auth">Farmer Portal</Link>
               </Button>
               <Button size="sm" className="bg-gradient-primary hover:shadow-glow transition-all duration-300" asChild>
                 <Link to="/expert-auth">Expert Portal</Link>
@@ -127,7 +127,7 @@ const Header = () => {
               ) : (
                 <>
                   <Button variant="outline" size="sm" asChild>
-                    <Link to="/farmer-auth">Farmer Login</Link>
+                    <Link to="/farmer-auth">Farmer Portal</Link>
                   </Button>
                   <Button size="sm" className="bg-gradient-primary" asChild>
                     <Link to="/expert-auth">Expert Portal</Link>
