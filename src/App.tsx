@@ -15,6 +15,7 @@ import Articles from "./pages/Articles";
 import ExpertBooking from "./pages/ExpertBooking";
 import FarmerDashboard from "./pages/FarmerDashboard";
 import NotFound from "./pages/NotFound";
+import CommunityForum from "./pages/CommunityForum";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/articles" element={<Articles />} />
             <Route path="/expert/:expertId/book" element={<ExpertBooking />} />
             <Route path="/farmer-dashboard" element={<FarmerDashboard />} />
+            <Route path="/community" element={<CommunityForum />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

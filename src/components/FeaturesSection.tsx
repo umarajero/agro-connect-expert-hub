@@ -40,7 +40,7 @@ const FeaturesSection = () => {
   ];
 
   const additionalFeatures = [
-    { icon: MessageCircle, title: "Community Forum", description: "Join discussions with fellow farmers" },
+    { icon: MessageCircle, title: "Community Forum", description: "Join discussions with fellow farmers", link: "/community" },
     { icon: Calendar, title: "Crop Calendar", description: "Plan your planting and harvesting schedule" },
     { icon: TrendingUp, title: "Market Insights", description: "Track crop prices and market trends" },
     { icon: Zap, title: "Smart Alerts", description: "Receive notifications for optimal farming actions" }
@@ -101,13 +101,19 @@ const FeaturesSection = () => {
         {/* Additional Features Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {additionalFeatures.map((feature, index) => (
-            <Card 
+            <Card
               key={index} 
-              className="text-center p-6 hover:shadow-natural transition-all duration-300 bg-card/80 backdrop-blur-sm group cursor-pointer"
+              className={`text-center p-6 hover:shadow-natural transition-all duration-300 bg-card/80 backdrop-blur-sm group ${feature.link ? 'cursor-pointer' : ''}`}
+              onClick={feature.link ? () => window.location.href = feature.link : undefined}
             >
               <feature.icon className="h-8 w-8 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" />
               <h3 className="font-semibold text-foreground mb-2">{feature.title}</h3>
               <p className="text-sm text-muted-foreground">{feature.description}</p>
+              {feature.link && (
+                <div className="mt-3">
+                  <span className="text-xs text-primary group-hover:underline">Click to explore →</span>
+                </div>
+              )}
             </Card>
           ))}
         </div>
