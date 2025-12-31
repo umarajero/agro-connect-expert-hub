@@ -401,9 +401,8 @@ const BecomeExpert = () => {
                     </div>
                   </div>
 
-                  <Button 
-                    type="submit" 
-                    disabled={loading}
+                  <Button
+                    type="submit"
                     disabled={loading || (existingApplication && existingApplication.status === 'approved')}
                     className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
                     size="lg"
